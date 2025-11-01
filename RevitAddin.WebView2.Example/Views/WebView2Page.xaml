@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:RevitAddin.WebView2.Example.Views"
       xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
       mc:Ignorable="d"
+      Title="ARKYV Assistant"
       Background="WhiteSmoke">
 
     <Grid>

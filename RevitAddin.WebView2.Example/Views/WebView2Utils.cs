@@ -10,12 +10,12 @@ namespace RevitAddin.WebView2.Example.Views
     public class ViewModel : ObservableObject
     {
         public static ViewModel Instance { get; } = new ViewModel();
-        public Uri Uri { get; set; } = new Uri("https://aps-single-page.glitch.me/");
+        public Uri Uri { get; set; } = new Uri("http://localhost:3000/");
     }
 
     public static class WebView2Utils
     {
-        private const string UserDataFolder = "RevitAddin.WebView2.Example";
+        private const string UserDataFolder = "ARKYV.Assistant";
         public static async Task InitializeWebAsync(this Microsoft.Web.WebView2.Wpf.WebView2 webView)
         {
             try

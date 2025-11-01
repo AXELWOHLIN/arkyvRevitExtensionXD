@@ -12,25 +12,11 @@ namespace RevitAddin.WebView2.Example.Revit
         private RibbonPanel ribbonPanel;
         public Result OnStartup(UIControlledApplication application)
         {
-            ribbonPanel = application.CreatePanel("WebView2");
+            ribbonPanel = application.CreatePanel("ARKYV Assistant");
 
-            var textBox = ribbonPanel.CreateTextBox()
-                    .SetPromptText("URL")
-                    .SetValue(ViewModel.Instance.Uri.ToString())
-                    .SetLargeImage("Resources/Revit.ico")
-                    .AddEnterPressed((e, s) =>
-                    {
-                        var textBox = e as TextBox;
-                        ViewModel.Instance.Uri = new Uri(textBox.Value.ToString());
-                    });
-
-            ribbonPanel.RowStackedItems(
-                textBox,
-                ribbonPanel.CreatePushButton<Commands.CommandPage>("Page")
-                    .SetLargeImage("Resources/Revit.ico"),
-                ribbonPanel.CreatePushButton<Commands.CommandDockablePane>("Dockable")
-                    .SetLargeImage("Resources/Revit.ico")
-                );
+            ribbonPanel.CreatePushButton<Commands.CommandDockablePane>("ARKYV")
+                .SetToolTip("Open ARKYV Assistant as a dockable panel")
+                .SetLargeImage("Resources/Revit.ico");
 
             if (int.TryParse(application.ControlledApplication.VersionNumber, out int versionNumber))
             {
@@ -45,23 +31,51 @@ namespace RevitAddin.WebView2.Example.Revit
         private static DockablePaneId DockablePaneId => new DockablePaneId(DockablePaneGuid);
         public static void DockablePaneShow(UIApplication uiapp)
         {
-            var dockablePane = uiapp.GetDockablePane(DockablePaneId);
-            if (dockablePane.IsShown())
+            try
             {
-                dockablePane.Hide();
+                var dockablePane = uiapp.GetDockablePane(DockablePaneId);
+                if (dockablePane == null)
+                {
+                    TaskDialog.Show("Error", "Dockable pane not found. It may not be registered properly.");
+                    return;
+                }
+                
+                if (dockablePane.IsShown())
+                {
+                    dockablePane.Hide();
+                }
+                else
+                {
+                    dockablePane.Show();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                dockablePane.Show();
+                TaskDialog.Show("Error", $"Failed to show dockable pane: {ex.Message}");
             }
         }
         private void RegisterDockablePane(UIControlledApplication application)
         {
-            if (DockablePane.PaneIsRegistered(DockablePaneId))
-                return;
+            try
+            {
+                if (DockablePane.PaneIsRegistered(DockablePaneId))
+                    return;
 
-            //application.RegisterDockablePane(DockablePaneId, "WebView2", new DockablePanePageProvider(() => { return new WebView2Page(); }));
-            application.RegisterDockablePane(DockablePaneId, "WebView2", new DockablePanePageProvider(new WebView2Page()));
+                var provider = new DockablePanePageProvider(() => 
+                {
+                    var page = new WebView2Page();
+                    return page;
+                });
+                
+                application.RegisterDockablePane(DockablePaneId, "ARKYV Assistant", provider);
+                
+                // Show success message for debugging
+                TaskDialog.Show("Success", "ARKYV Assistant dockable pane registered successfully!");
+            }
+            catch (Exception ex)
+            {
+                TaskDialog.Show("Registration Error", $"Failed to register dockable pane: {ex.Message}\n\nStack trace: {ex.StackTrace}");
+            }
         }
 
         public Result OnShutdown(UIControlledApplication application)

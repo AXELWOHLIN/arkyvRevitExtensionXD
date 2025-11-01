@@ -9,6 +9,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <Configurations>
+      Debug 2026; 2026;
       Debug 2025; 2025;
       Debug 2024; 2024;
       Debug 2023; 2023;
@@ -61,6 +62,12 @@
         <TargetFramework>net8.0-windows</TargetFramework>
       </PropertyGroup>
     </When>
+    <When Condition="$(Configuration.Contains('2026'))">
+      <PropertyGroup>
+        <RevitVersion>2026</RevitVersion>
+        <TargetFramework>net8.0-windows</TargetFramework>
+      </PropertyGroup>
+    </When>
     <Otherwise>
       <PropertyGroup>
         <RevitVersion>2019</RevitVersion>
@@ -101,7 +108,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>RevitAddin.WebView2.Example</PackageId>
+    <PackageId>ARKYV.Assistant</PackageId>
     <Version>1.0.0</Version>
   </PropertyGroup>
 
@@ -115,9 +122,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Company>ricaun</Company>
-    <Authors>Luiz Henrique Cassettari</Authors>
-    <Description>Revit Plugin Description for $(PackageId).</Description>
+    <Company>ARKYV</Company>
+    <Authors>ARKYV</Authors>
+    <Description>ARKYV Assistant for Autodesk Revit - Integrated web interface for ARKYV platform.</Description>
     <CopyrightYears>$([System.DateTime]::Now.ToString('yyyy'))</CopyrightYears>
   </PropertyGroup>
 

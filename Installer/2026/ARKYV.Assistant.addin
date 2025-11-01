@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>ARKYV Assistant 2026</Name>
+    <Assembly>contents\ARKYV.Assistant.dll</Assembly>
+    <AddInId>C3D4E5F6-A7B8-4C9D-0E1F-2A3B4C5D6E7F</AddInId>
+    <FullClassName>RevitAddin.WebView2.Example.Revit.App</FullClassName>
+    <VendorId>ARKYV</VendorId>
+    <VendorDescription>ARKYV - Building Information Management Platform</VendorDescription>
+  </AddIn>
+</RevitAddIns> 
