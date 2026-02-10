@@ -10,7 +10,7 @@ namespace RevitAddin.WebView2.Example.Views
     public class ViewModel : ObservableObject
     {
         public static ViewModel Instance { get; } = new ViewModel();
-        public Uri Uri { get; set; } = new Uri("http://localhost:3000/");
+        public Uri Uri { get; set; } = new Uri("https://app.arkyv.ai/");
     }
 
     public static class WebView2Utils
